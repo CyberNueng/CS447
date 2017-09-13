@@ -1,7 +1,7 @@
 <?php
 
 require 'PdoDB.php';
-define ('SITE_ROOT', realpath(dirname(__FILE__)));
+
 $name = $_POST["p_name"];
 $price = $_POST["p_price"];
 $phave = $_POST["p_have"];
@@ -23,9 +23,10 @@ $last_id = $db->lastInsertId();
 $newimgname = $last_id.'.jpg';
 
 $target = "../img/".$newimgname;
-if(move_uploaded_file($_FILES["imgToUpload"]["tmp_name"], SITE_ROOT.$target)){
+if(move_uploaded_file($_FILES["imgToUpload"]["tmp_name"], $target)){
 	$records = $db->prepare("UPDATE product SET pimgpath = :p_imgpath WHERE pid = :p_id");
-	$records->bindParam(':p_imgpath', $img);
+	$records->bindParam(':p_imgpath', $newimgname);
+	$records->bindParam(':p_id', $last_id);
 	$records->execute();
 }
 echo json_encode(true);

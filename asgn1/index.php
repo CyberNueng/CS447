@@ -6,7 +6,7 @@ if($_SESSION["user"] == "")header("Location:login.php");
 
 require 'classes/PdoDB.php';
 require 'classes/dataProduct.php';
-	
+
 ?>
 
 <!DOCTYPE html>
